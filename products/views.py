@@ -1,14 +1,29 @@
 from django.http import HttpResponse, JsonResponse, Http404
 from django.shortcuts import render
 
-
-# Create your views here.
+from .forms import ProductForm
 from products.models import Product
 
 
-def home_view(request, *args, **kwargs):
-    context = {"name": "Amandine"}
+# Create your views here.
+def search_view(request, *args, **kwargs):
+    query = request.GET.get('q')
+    qs = Product.objects.filter(title__icontains=query[0])
+    context = {"name": "Amandine", "query": query}
     return render(request, "home.html", context)
+
+
+def product_create_view(request, *args, **kwargs):
+    # print(request.POST)
+    # print(request.GET)
+    if request.method == "POST":
+        post_data = request.POST or None
+        if post_data != None:
+            my_form = ProductForm(request.POST)
+            if my_form.is_valid():
+                title_from_input = my_form.cleaned_data.get('title')
+                Product.objects.create(title=title_from_input)
+    return render(request, "forms.html", {})
 
 
 def product_detail_view(request, pk):
