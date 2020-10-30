@@ -1,4 +1,15 @@
 from django import forms
 
-class ProductForm(forms.Form):
-    title = forms.CharField()
+from .models import Product
+
+# class ProductForm(forms.Form):
+#     title = forms.CharField()
+
+
+class ProductModelForm(forms.ModelForm):
+    # title = forms.CharField()
+    class Meta:
+        model = Product
+        fields = [
+            'title'
+        ]
