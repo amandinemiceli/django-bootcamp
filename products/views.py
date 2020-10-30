@@ -19,6 +19,17 @@ def product_detail_view(request, pk):
     # return HttpResponse(f"Product id {obj.id}")
     return render(request, "products/detail.html", {"object": obj})
 
+
+def product_list_view(request, *args, **kwargs):
+    try:
+        objects = Product.objects.all()
+        context = {"object_list": objects}
+    except Product.DoesNotExist:
+        raise Http404
+    # return HttpResponse(f"Product id {obj.id}")
+    return render(request, "products/list.html", context)
+
+
 def product_api_detail_view(request, pk, *args, **kwargs):
     try:
         obj = Product.objects.get(id=pk)
