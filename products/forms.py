@@ -11,5 +11,18 @@ class ProductModelForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = [
-            'title'
+            'title',
+            'content'
         ]
+
+    def clean_title(self):
+        data = self.cleaned_data.get('title')
+        if len(data) < 4:
+            raise forms.ValidationError("This is not long enough")
+        return data
+
+    def clean_content(self):
+        data = self.cleaned_data.get('content')
+        if len(data) < 4:
+            raise forms.ValidationError("This is not long enough")
+        return data
