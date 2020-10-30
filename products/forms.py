@@ -16,13 +16,13 @@ class ProductModelForm(forms.ModelForm):
         ]
 
     def clean_title(self):
-        data = self.cleaned_data.get('title')
-        if len(data) < 4:
-            raise forms.ValidationError("This is not long enough")
-        return data
+        title = self.cleaned_data.get('title')
+        if len(title) < 4:
+            raise forms.ValidationError("The title is not long enough")
+        return title
 
     def clean_content(self):
-        data = self.cleaned_data.get('content')
-        if len(data) < 4:
-            raise forms.ValidationError("This is not long enough")
-        return data
+        content = self.cleaned_data.get('content')
+        if len(content) < 4:
+            raise forms.ValidationError("The content is not long enough")
+        return content

@@ -29,7 +29,6 @@ def search_view(request, *args, **kwargs):
 def product_create_view(request, *args, **kwargs):
     form = ProductModelForm(request.POST or None)
     if form.is_valid():
-        # print(form.cleaned_data)
         obj = form.save(commit=False)
         # same as Product(**data)
         # do some stuff then
