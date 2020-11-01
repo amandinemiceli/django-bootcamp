@@ -8,8 +8,8 @@ User = get_user_model()
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField()
-    email = forms.EmailField(required=True)
+    username  = forms.CharField()
+    email     = forms.EmailField(required=True)
     password1 = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(
@@ -19,7 +19,7 @@ class RegisterForm(forms.Form):
             }
         )
     )
-    password2 = forms.CharField(
+    password2  = forms.CharField(
         label='Confirmation Password',
         widget=forms.PasswordInput(
             attrs={
@@ -44,6 +44,14 @@ class RegisterForm(forms.Form):
         if qs.exists():
             raise forms.ValidationError("This email is already in use.")
         return email
+
+    def clean_password2(self):
+        password  = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("password2")
+        if password != password2:
+            raise forms.ValidationError("The confirmation password doest not match password.")
+        return password2
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()

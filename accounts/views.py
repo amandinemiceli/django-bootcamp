@@ -6,12 +6,13 @@ from .forms import LoginForm, RegisterForm
 
 User = get_user_model()
 
+
 def register_view(request):
     form = RegisterForm(request.POST or None)
     if form.is_valid():
-        username = form.cleaned_data.get('username')
-        email = form.cleaned_data.get('email')
-        password = form.cleaned_data.get('password1')
+        username  = form.cleaned_data.get('username')
+        email     = form.cleaned_data.get('email')
+        password  = form.cleaned_data.get('password1')
         password2 = form.cleaned_data.get('password2')
         try:
             user = User.objects.create_user(username, email, password)
