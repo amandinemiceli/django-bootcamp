@@ -33,7 +33,8 @@ def product_create_view(request, *args, **kwargs):
     if form.is_valid():
         obj = form.save(commit=False)
         # same as Product(**data)
-        # do some stuff then
+        # do some stuff
+        obj.user = request.user
         obj.save()
 
         # other method to save in DB:
