@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, redirect
 
@@ -25,7 +26,7 @@ def search_view(request, *args, **kwargs):
 #                 Product.objects.create(title=title_from_input)
 #     return render(request, "forms.html", {})
 
-
+@login_required
 def product_create_view(request, *args, **kwargs):
     form = ProductModelForm(request.POST or None)
     if form.is_valid():
